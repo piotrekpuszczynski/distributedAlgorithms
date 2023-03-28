@@ -5,13 +5,13 @@ int main(int argc, char **argv) {
     if (argc == 1 || argc > 3)
         throw(std::runtime_error("invalid arguments count"));
 
-    int result;
+    uint32_t result;
     if (argc == 2) {
-        int n = atoi(argv[1]);
+        uint32_t n = atoi(argv[1]);
         result = election::election(n);
     } else {
-        int n = atoi(argv[1]);
-        int u = atoi(argv[2]);
+        uint32_t n = atoi(argv[1]);
+        uint32_t u = atoi(argv[2]);
         result = election::election(n, u);
     }
 

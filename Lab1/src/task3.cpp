@@ -1,29 +1,36 @@
 #include <iostream>
 #include <cmath>
+#include <map>
+#include <Utils.hpp>
 #include <Election.hpp>
 
 int main(int argc, char **argv) {
-    if (argc < 2)
+    if (argc != 4)
         throw(std::runtime_error("invalid arguments count"));
 
     int iterations = atoi(argv[1]);
-    for (int arg = 2; arg < argc; arg++) {
-        int n = atoi(argv[arg]);
-        std::cout << "Starting for args = " << n << std::endl;
+    int from = atoi(argv[2]);
+    int to = atoi(argv[3]);
 
+    std::map<int, double> expected;
+    std::map<int, double> variance;
+    for (int n = from; n < to; n++) {
         double ex = 0;
         for (int i = 0; i < iterations; i++) {
             ex += election::election(n);
         }
         ex /= iterations;
-        std::cout << "E[L] = " << ex << std::endl;
+        expected[n] = ex;
+
         double varx = 0;
         for (int i = 0; i < iterations; i++) {
             varx += std::pow(ex - election::election(n), 2);
         }
         varx /= iterations;
-        std::cout << "V[L] = " << varx << std::endl;
+        variance[n] = varx;
     }
+    utils::printMap(expected);
+    utils::printMap(variance);
 
     return 0;
 }
