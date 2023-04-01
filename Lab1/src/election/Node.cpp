@@ -12,4 +12,3 @@ void Node::beep(double p) {
 bool Node::isConnected() {
     return connected;
 }
-
